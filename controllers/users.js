@@ -131,6 +131,7 @@ export const login = async (req, res, next) => {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
+        path: '/'
       }).send({
         id: user.id, email: user.email, name: user.name, lastLogin: lastLogin.last_login, status: user.status
       });
@@ -141,6 +142,7 @@ export const login = async (req, res, next) => {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
+        path: '/'
       }).send({
         id: user.id, email: user.email, name: user.name, lastLogin: lastLogin.last_login, status: user.status
       });
@@ -189,4 +191,4 @@ export const changePassword = async (req, res, next) => {
   }
 }
 
-export const logout = (req, res) => res.status(OK.statusCode).clearCookie('token', {httpOnly: true, secure: true, sameSite: 'none'}).send({});
+export const logout = (req, res) => res.status(OK.statusCode).clearCookie('token', {httpOnly: true, secure: true, sameSite: 'none', path: '/'}).send({});
