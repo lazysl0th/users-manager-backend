@@ -3,14 +3,14 @@ import { verifyUser, resetPassword } from './templates.js'
 import config from '../../config.js';
 const {
   SMTP_FROM_NAME,
-  SMTP_FROM_EMAIL,
+  SMTP_USER,
 } = config
 
 export const sendVerifyUserMsg = async (user, token) => {
   const verifyUrl = urls.verifyUser(token);
 
   const msg = {
-    from: `${SMTP_FROM_NAME} <${SMTP_FROM_EMAIL}>`,
+    from: `${SMTP_FROM_NAME} <${SMTP_USER}>`,
     to: user.email,
     subject: verifyUser.subject(user.name),
     html: verifyUser.html(user.name, verifyUrl),

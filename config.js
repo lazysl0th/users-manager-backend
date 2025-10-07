@@ -16,7 +16,6 @@ const {
   SMTP_USER,
   SMTP_PASS,
   SMTP_FROM_NAME,
-  SMTP_FROM_EMAIL,
   BACKEND,
   FRONTEND
 } = process.env;
@@ -36,8 +35,7 @@ const config = {
   SMTP_USER: NODE_ENV === 'production' && SMTP_USER ? SMTP_USER : 'u69740384@gmail.com',
   SMTP_PASS: NODE_ENV === 'production' && SMTP_PASS ? SMTP_PASS : 'tjsm yogr dxly qmui',
   SMTP_FROM_NAME: NODE_ENV === 'production' && SMTP_FROM_NAME ? SMTP_FROM_NAME : 'User manager',
-  SMTP_FROM_EMAIL: NODE_ENV === 'production' && SMTP_FROM_EMAIL ? SMTP_FROM_EMAIL : 'u69740384@gmail.com',
-  BACKEND: NODE_ENV === 'production' && BACKEND ? BACKEND : 'https://user-management-backend-gorj.onrender.com',
+  BACKEND: NODE_ENV === 'production' && BACKEND ? BACKEND : 'https://user-manager-backend-lucy.onrender.com',
   FRONTEND: NODE_ENV === 'production' && FRONTEND ? FRONTEND : 'https://user-management-frontend-mu.vercel.app',
 };
 

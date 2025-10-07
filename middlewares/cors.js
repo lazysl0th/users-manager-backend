@@ -1,5 +1,5 @@
 const allowedCors = [
-  'https://user-manager-backend-lucy.onrender.com',
+  'https://users-manager-frontend-i0c9.onrender.com',
 ];
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
