@@ -14,7 +14,7 @@ router.post('/signin', login);
 
 router.post('/signup', createUser);
 
-router.get('/signin', logout);
+router.get('/signout', logout);
 
 router.get('/verifyuser', verifyUser);
 
