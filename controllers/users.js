@@ -1,10 +1,12 @@
 
 import jwt from 'jsonwebtoken';
 import config from '../config.js';
-import { sendVerifyUserMsg, sendResetPasswordMsg } from '../services/email/email.js';
-const { BAD_REQUEST, UNAUTHORIZED, BLOCKED, RESET_PASSWORD, NO_CONTENT} = constatns;
+import { sendMessage } from '../services/email/email.js';
+import { urls } from '../services/email/config.js';
+import { verifyUserMsgTemplate, resetPasswordMsgTemplate } from '../services/email/templates.js'
+const { BAD_REQUEST, UNAUTHORIZED, BLOCKED, RESET_PASSWORD, PASSWORD_CHANGE} = constatns;
 
-const { JWT_SECRET } = config;
+const { JWT_SECRET, FRONTEND } = config;
 
 import {
   insertUserQuery,
@@ -52,7 +54,7 @@ export const createUser = async (req, res, next) => {
     );
     const token = jwt.sign({ id: user.id, type: 'verify' }, JWT_SECRET, { expiresIn: '1h' });
     await insertVerifyTokenQuery(token, user.id);
-    await sendVerifyUserMsg(user, token);
+    const info = await sendMessage(user, token, urls.verifyUser, verifyUserMsgTemplate);
     res.status(CREATED.statusCode).send(user);
   } catch (e) {
     console.log(e)
@@ -64,11 +66,13 @@ export const createUser = async (req, res, next) => {
 export const verifyUser = async (req, res, next)=> {
   try {
     const tokenInfo = jwt.verify(req.query.token, JWT_SECRET);
+    console.log(tokenInfo);
     if (tokenInfo.type != 'verify') throw new BadRequestErr(BAD_REQUEST.text)
     const user = await selectUserByVerifyTokenQuery(req.query.token);
-    await updateActiveStatusQuery(user.id);
-    await insertVerifyTokenQuery('', user.id);
-    return res.redirect('http://localhost:5173/').send({});
+    console.log(user);
+    updateActiveStatusQuery(user.id);
+    insertVerifyTokenQuery('', user.id);
+    return res.redirect(`${FRONTEND}`).send({});
   } catch (e) {
     if (e.code == '23514' || e.name == '23502' || e.name == '22001') return next(new BadRequestErr(BAD_REQUEST.text))
   }
@@ -158,7 +162,8 @@ export const resetPassword = async (req, res, next) => {
     const user = await selectUserByEmail(req.body.email);
     const token = jwt.sign({ id: user.id, type: "reset" }, JWT_SECRET, { expiresIn: '15m' });
     await insertResetTokenQuery(token, user.id);
-    await sendResetPasswordMsg(user, token)
+    const info = await sendMessage(user, token, urls.resetPass, resetPasswordMsgTemplate);
+    console.log(info);
     return res.status(OK.statusCode).send({text: RESET_PASSWORD.text});
   } catch (e) {
     console.log(e);
@@ -169,10 +174,10 @@ export const resetPassword = async (req, res, next) => {
 export const changePassword = async (req, res, next) => {
   try {
     const tokenInfo = jwt.verify(req.body.token, JWT_SECRET);
-    if (tokenInfo.type != 'reset') throw new BadRequestErr(BAD_REQUEST.text)
+    if (tokenInfo.type != 'reset' ) throw new BadRequestErr(BAD_REQUEST.text)
     const user = await insertNewPasswordQuery(req.body.password, req.body.token);
     await insertResetTokenQuery('', user.id);
-    return res.status(NO_CONTENT.statusCode).send(NO_CONTENT.text);
+    return res.status(OK.statusCode).send({text: PASSWORD_CHANGE.text});
   } catch(e) {
     console.log(e);
     return next(e);

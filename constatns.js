@@ -9,9 +9,9 @@ export default {
   CREATED: {
     statusCode: 201,
   },
-  NO_CONTENT: {
+  PASSWORD_CHANGE: {
     statusCode: 204,
-    text: 'Password change '
+    text: 'Password change'
   },
   BAD_REQUEST: {
     statusCode: 400,

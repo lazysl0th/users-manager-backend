@@ -1,4 +1,4 @@
-export const verifyUser = {
+export const verifyUserMsgTemplate = {
   subject: (name) => `Verify your account, ${name}`,
   html: (name, verifyUrl) => `
       <h2>Hello, ${name}!</h2>
@@ -10,8 +10,8 @@ export const verifyUser = {
   text: (name, verifyUrl) => `Hello, ${name}! Please verify your email: ${verifyUrl}`,
 }
 
-export const resetPassword = {
-  subject: 'Reset Your Password',
+export const resetPasswordMsgTemplate = {
+  subject: () => 'Reset Your Password',
   html: (name, resetPasswordUrl) => `
     <p>Hello ${name},</p>
     <p>You requested to reset your password.</p>

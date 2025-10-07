@@ -22,7 +22,7 @@ const {
 
 const config = {
   PORT: NODE_ENV === 'production' && PORT ? PORT : 3001,
-  FPORT: NODE_ENV === 'production' && FPORT ? FPORT : 5173,
+  FPORT: NODE_ENV === 'production' && FPORT ? FPORT : 5174,
   HOST: NODE_ENV === 'production' && HOST ? HOST : 'localhost',
   JWT_SECRET: NODE_ENV === 'production' && JWT_SECRET ? JWT_SECRET : 'JWT_SECRET_DEV',
   DBHOST: NODE_ENV === 'production' && DBHOST ? DBHOST : 'localhost',

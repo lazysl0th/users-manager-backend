@@ -123,11 +123,11 @@ export const selectUserByEmail = async (email) => {
   return user.rows[0];
 }
 
-export const insertNewPasswordQuery = async (password, verifyToken) => {
+export const insertNewPasswordQuery = async (password, resetToken) => {
   const hash = await bcrypt.hash(password, 10);
   const user =  await pool.query(
-    `UPDATE users SET password = $1 WHERE verify_token = $2 RETURNING id`,
-    [hash, verifyToken]
+    'UPDATE users SET password = $1 WHERE reset_token = $2 RETURNING id',
+    [hash, resetToken]
   )
   return user.rows[0];
 }
