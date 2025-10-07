@@ -6,18 +6,24 @@ const {
 } = config
 
 export const sendMessage = async (user, token, url, template) => {
-  const verifyUrl = url(token);
-  const { token: accessToken } = await oAuth2Client.getAccessToken();
-  transport.options.auth.accessToken = accessToken;
+  try {
+    const verifyUrl = url(token);
+    const { token: accessToken } = await oAuth2Client.getAccessToken();
+    transport.options.auth.accessToken = accessToken;
 
-  const msg = {
-    from: `${EMAIL_NAME} <${EMAIL_USER}>`,
-    to: user.email,
-    subject: template.subject(user.name),
-    html: template.html(user.name, verifyUrl),
-    text: template.text(user.name, verifyUrl)
-  };
+    const msg = {
+      from: `${EMAIL_NAME} <${EMAIL_USER}>`,
+      to: user.email,
+      subject: template.subject(user.name),
+      html: template.html(user.name, verifyUrl),
+      text: template.text(user.name, verifyUrl)
+    };
 
-  const info = await transport.sendMail(msg);
-  return info;
+    const info = await transport.sendMail(msg);
+    console.log("Письмо отправлено:", info.messageId);
+    return info;
+  } catch (err) {
+    console.error("Ошибка при отправке письма:", err);
+    throw err;
+  }
 }
