@@ -155,6 +155,7 @@ export const login = async (req, res, next) => {
 };
 
 export const getUser = async (req, res, next) => {
+  console.log(req.user.id);
   try {
     const [ user ] = await selectUserByIdQuery(req.user.id);
     if (user.status == 'Blocked') throw new Forbidden(BLOCKED.text)
@@ -192,10 +193,4 @@ export const changePassword = async (req, res, next) => {
   }
 }
 
-export const logout = (req, res) => res.status(OK.statusCode).cookie('token', {
-  expires: Date.now(),
-  httpOnly: true, 
-  secure: true, 
-  sameSite: 'none', 
-  path: '/',
-}).send({});
+export const logout = (req, res) => res.status(OK.statusCode).clearCookie('token').send({});
