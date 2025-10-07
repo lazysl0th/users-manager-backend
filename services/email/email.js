@@ -1,15 +1,17 @@
-import { transport } from './config.js';
+import { transport, oAuth2Client } from './config.js';
 import config from '../../config.js';
 const {
-  SMTP_FROM_NAME,
-  SMTP_USER,
+  EMAIL_NAME,
+  EMAIL_USER,
 } = config
 
 export const sendMessage = async (user, token, url, template) => {
   const verifyUrl = url(token);
+  const { token: accessToken } = await oAuth2Client.getAccessToken();
+  transport.options.auth.accessToken = accessToken;
 
   const msg = {
-    from: `${SMTP_FROM_NAME} <${SMTP_USER}>`,
+    from: `${EMAIL_NAME} <${EMAIL_USER}>`,
     to: user.email,
     subject: template.subject(user.name),
     html: template.html(user.name, verifyUrl),

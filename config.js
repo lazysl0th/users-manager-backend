@@ -31,7 +31,7 @@ const config = {
   DBUSER: NODE_ENV === 'production' && DBUSER ? DBUSER : 'adminpaneluser',
   DBPASS: NODE_ENV === 'production' && DBPASS ? DBPASS : 'secret',
   EMAIL_USER: NODE_ENV === 'production' && EMAIL_USER ? EMAIL_USER : '',
-  EMAIL_NAME: NODE_ENV === 'production' && EMAIL_NAME ? EMAIL_NAME : 'User manager',
+  EMAIL_NAME: NODE_ENV === 'production' && EMAIL_NAME ? EMAIL_NAME : '',
   BACKEND: NODE_ENV === 'production' && BACKEND ? BACKEND : '',
   FRONTEND: NODE_ENV === 'production' && FRONTEND ? FRONTEND : '',
   CLIENT_ID: NODE_ENV === 'production' && CLIENT_ID ? CLIENT_ID : '',
