@@ -1,7 +1,5 @@
 const allowedCors = [
-  'http://localhost:5173',
-  //'http://movies-explorer.ls.nomoredomains.rocks/',
-  //'https://movies-explorer.ls.nomoredomains.rocks/',
+  'https://user-manager-backend-lucy.onrender.com',
 ];
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
