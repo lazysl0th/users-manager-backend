@@ -193,7 +193,7 @@ export const changePassword = async (req, res, next) => {
   }
 }
 
-export const logout = (req, res) => res.status(OK.statusCode).clearCookie('token', {
+export const logout = (req, res) => res.status(OK.statusCode).cookie('token', '', {
   httpOnly: true, 
   secure: true, 
   sameSite: 'none', 
