@@ -7,14 +7,14 @@ const { JWT_SECRET } = config
 const { FORBIDDEN } = constatns;
 
 export default (req, res, next) => {
-  console.log(req.cookies);
-  const { token } = req.cookies;
-  console.log(JWT_SECRET);
+  const authHeader = req.headers.authorization;
 
-  if (!token) {
-    throw new Forbidden(FORBIDDEN.text);
-  }
+  if (!authHeader) throw new Forbidden(FORBIDDEN.text);
 
+  const token = authHeader.split(' ')[1];
+
+  if (!token) throw new Forbidden(FORBIDDEN.text);
+  
   let payload;
 
   try {
@@ -22,8 +22,6 @@ export default (req, res, next) => {
   } catch (err) {
     throw new Forbidden(FORBIDDEN.text);
   }
-  console.log(payload);
   req.user = payload;
-  console.log(req.user);
   return next();
 };

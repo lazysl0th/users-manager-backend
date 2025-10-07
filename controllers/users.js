@@ -126,26 +126,13 @@ export const login = async (req, res, next) => {
     const lastLogin = await updateLastLoginQuery(user.id);
     if (req.body.remember) {
       const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '7d' });
-      return res.status(OK.statusCode).cookie('token', token, {
-        maxAge: 3600000 * 24 * 7,
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-        path: '/',
-      }).send({
-        id: user.id, email: user.email, name: user.name, lastLogin: lastLogin.last_login, status: user.status
+      return res.status(OK.statusCode).send({
+        id: user.id, email: user.email, name: user.name, lastLogin: lastLogin.last_login, status: user.status, token: token
       });
     }
     const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '2h' });
-    return res.status(OK.statusCode).cookie('token', token, {
-        maxAge: 3600000 * 2,
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-        path: '/',
-        domain: 'users-manager-frontend-i0c9.onrender.com'
-      }).send({
-        id: user.id, email: user.email, name: user.name, lastLogin: lastLogin.last_login, status: user.status
+    return res.status(OK.statusCode).send({
+        id: user.id, email: user.email, name: user.name, lastLogin: lastLogin.last_login, status: user.status, token: token
       });
   } catch (e) {
     console.log(e)
@@ -155,7 +142,6 @@ export const login = async (req, res, next) => {
 };
 
 export const getUser = async (req, res, next) => {
-  console.log(req.user.id);
   try {
     const [ user ] = await selectUserByIdQuery(req.user.id);
     if (user.status == 'Blocked') throw new Forbidden(BLOCKED.text)
@@ -192,11 +178,3 @@ export const changePassword = async (req, res, next) => {
     return next(e);
   }
 }
-
-export const logout = (req, res) => res.status(OK.statusCode).cookie('token', {
-  expires: Date.now(),
-  httpOnly: true, 
-  secure: true, 
-  sameSite: 'none', 
-  path: '/',
-}).send({});

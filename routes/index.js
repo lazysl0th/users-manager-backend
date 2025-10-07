@@ -1,6 +1,6 @@
 import express from 'express';
 import usersRoutes from './users.js';
-import { login, createUser, logout, verifyUser, resetPassword, changePassword } from '../controllers/users.js';
+import { login, createUser, verifyUser, resetPassword, changePassword } from '../controllers/users.js';
 import auth from '../middlewares/auth.js'
 import NotFoundError from '../errors/not-found-err.js';
 import constatns from '../constatns.js';
@@ -13,8 +13,6 @@ const router = express.Router();
 router.post('/signin', login);
 
 router.post('/signup', createUser);
-
-router.get('/signout', logout);
 
 router.get('/verifyuser', verifyUser);
 
