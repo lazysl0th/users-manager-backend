@@ -7,6 +7,7 @@ const { JWT_SECRET } = config
 const { FORBIDDEN } = constatns;
 
 export default (req, res, next) => {
+  console.log(req.cookies);
   const { token } = req.cookies;
 
   if (!token) {
