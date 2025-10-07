@@ -30,13 +30,13 @@ const config = {
   DBNAME: NODE_ENV === 'production' && DBNAME ? DBNAME : 'adminpaneldb',
   DBUSER: NODE_ENV === 'production' && DBUSER ? DBUSER : 'adminpaneluser',
   DBPASS: NODE_ENV === 'production' && DBPASS ? DBPASS : 'secret',
-  SMTP_HOST: NODE_ENV === 'production' && SMTP_HOST ? SMTP_HOST : 'smtp.gmail.com',
-  SMTP_PORT: NODE_ENV === 'production' && SMTP_PORT ? SMTP_PORT : 587,
-  SMTP_USER: NODE_ENV === 'production' && SMTP_USER ? SMTP_USER : 'u69740384@gmail.com',
-  SMTP_PASS: NODE_ENV === 'production' && SMTP_PASS ? SMTP_PASS : 'tjsm yogr dxly qmui',
-  SMTP_FROM_NAME: NODE_ENV === 'production' && SMTP_FROM_NAME ? SMTP_FROM_NAME : 'User manager',
-  BACKEND: NODE_ENV === 'production' && BACKEND ? BACKEND : 'https://user-manager-backend-lucy.onrender.com',
-  FRONTEND: NODE_ENV === 'production' && FRONTEND ? FRONTEND : 'https://user-management-frontend-mu.vercel.app',
+  EMAIL_USER: NODE_ENV === 'production' && EMAIL_USER ? EMAIL_USER : '',
+  EMAIL_NAME: NODE_ENV === 'production' && EMAIL_NAME ? EMAIL_NAME : 'User manager',
+  BACKEND: NODE_ENV === 'production' && BACKEND ? BACKEND : '',
+  FRONTEND: NODE_ENV === 'production' && FRONTEND ? FRONTEND : '',
+  CLIENT_ID: NODE_ENV === 'production' && CLIENT_ID ? CLIENT_ID : '',
+  CLIENT_SECRET: NODE_ENV === 'production' && CLIENT_SECRET ? CLIENT_SECRET : '',
+  REFRESH_TOKEN: NODE_ENV === 'production' && REFRESH_TOKEN ? REFRESH_TOKEN : '',
 };
 
 export default config
