@@ -132,7 +132,7 @@ export const login = async (req, res, next) => {
         secure: true,
         sameSite: 'none',
         path: '/',
-        domain: 'user-manager-backend-lucy.onrender.com'
+        domain: 'users-manager-frontend-i0c9.onrender.com'
       }).send({
         id: user.id, email: user.email, name: user.name, lastLogin: lastLogin.last_login, status: user.status
       });
@@ -144,7 +144,7 @@ export const login = async (req, res, next) => {
         secure: true,
         sameSite: 'none',
         path: '/',
-        domain: 'user-manager-backend-lucy.onrender.com'
+        domain: 'users-manager-frontend-i0c9.onrender.com'
       }).send({
         id: user.id, email: user.email, name: user.name, lastLogin: lastLogin.last_login, status: user.status
       });
@@ -198,5 +198,5 @@ export const logout = (req, res) => res.status(OK.statusCode).clearCookie('token
   secure: true, 
   sameSite: 'none', 
   path: '/',
-  domain: 'user-manager-backend-lucy.onrender.com'
+  domain: 'users-manager-frontend-i0c9.onrender.com'
 }).send({});
