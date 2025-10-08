@@ -2,9 +2,6 @@ import { google } from "googleapis";
 import config from '../../config.js';
 
 const {
-  NODE_ENV,
-  HOST,
-  FPORT,
   CLIENT_ID,
   CLIENT_SECRET,
   REFRESH_TOKEN,
