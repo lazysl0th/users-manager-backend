@@ -1,6 +1,6 @@
 const allowedCors = [
-  'http://localhost:5174',
-  //'https://users-manager-frontend-i0c9.onrender.com',
+  //'http://localhost:5174',
+  'https://users-manager-frontend-i0c9.onrender.com',
 ];
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
