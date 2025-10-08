@@ -66,10 +66,8 @@ export const createUser = async (req, res, next) => {
 export const verifyUser = async (req, res, next)=> {
   try {
     const tokenInfo = jwt.verify(req.query.token, JWT_SECRET);
-    console.log(tokenInfo);
     if (tokenInfo.type != 'verify') throw new BadRequestErr(BAD_REQUEST.text)
     const user = await selectUserByVerifyTokenQuery(req.query.token);
-    console.log(user);
     updateActiveStatusQuery(user.id);
     insertVerifyTokenQuery('', user.id);
     return res.redirect(`${FRONTEND}`).send({});

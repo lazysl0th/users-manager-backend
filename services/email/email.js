@@ -1,4 +1,5 @@
-import { transport, oAuth2Client } from './config.js';
+import { gmail } from './config.js';
+import { msgTemplate } from './templates.js'
 import config from '../../config.js';
 const {
   EMAIL_NAME,
@@ -8,22 +9,25 @@ const {
 export const sendMessage = async (user, token, url, template) => {
   try {
     const verifyUrl = url(token);
-    const { token: accessToken } = await oAuth2Client.getAccessToken();
-    transport.options.auth.accessToken = accessToken;
 
-    const msg = {
-      from: `${EMAIL_NAME} <${EMAIL_USER}>`,
-      to: user.email,
-      subject: template.subject(user.name),
-      html: template.html(user.name, verifyUrl),
-      text: template.text(user.name, verifyUrl)
-    };
+    const subject = template.subject(user.name);
+    const html = template.html(user.name, verifyUrl);
+    const text = template.text(user.name, verifyUrl);
 
-    const info = await transport.sendMail(msg);
-    console.log("Письмо отправлено:", info.messageId);
-    return info;
-  } catch (err) {
-    console.error("Ошибка при отправке письма:", err);
-    throw err;
+    const messageParts = [msgTemplate(EMAIL_NAME, EMAIL_USER, user.email, subject, text, html)];
+
+    const encodedMessage = Buffer.from(messageParts.join("\n"))
+      .toString("base64")
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/, "");
+
+    const msg = await gmail.users.messages.send({
+      userId: "me",
+      requestBody: { raw: encodedMessage },
+    });
+    return msg.data;
+  } catch (e) {
+    console.log(e);
   }
-}
+};
