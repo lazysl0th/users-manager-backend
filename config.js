@@ -32,7 +32,7 @@ const config = {
   DBPASS: NODE_ENV === 'production' && DBPASS ? DBPASS : 'secret',
   EMAIL_USER: NODE_ENV === 'production' && EMAIL_USER ? EMAIL_USER : '',
   EMAIL_NAME: NODE_ENV === 'production' && EMAIL_NAME ? EMAIL_NAME : 'User manager',
-  BACKEND: NODE_ENV === 'production' && BACKEND ? BACKEND : '',
+  BACKEND: NODE_ENV === 'production' && BACKEND ? BACKEND : 'http://localhost:3001',
   FRONTEND: NODE_ENV === 'production' && FRONTEND ? FRONTEND : 'http://localhost:5174',
   CLIENT_ID: NODE_ENV === 'production' && CLIENT_ID ? CLIENT_ID : '',
   CLIENT_SECRET: NODE_ENV === 'production' && CLIENT_SECRET ? CLIENT_SECRET : '',
