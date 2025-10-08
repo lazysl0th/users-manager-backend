@@ -9,6 +9,8 @@ const {
   CLIENT_ID,
   CLIENT_SECRET,
   REFRESH_TOKEN,
+  BACKEND,
+  FRONTEND
 } = config
 
 const oAuth2Client = new google.auth.OAuth2(
